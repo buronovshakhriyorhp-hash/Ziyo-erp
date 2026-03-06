@@ -17,11 +17,12 @@ export const ENV = {
     PORT: parseInt(process.env.PORT || '3000', 10),
 
     DB: {
-        HOST: requireEnv('DB_HOST'),
+        URL: process.env.DATABASE_URL, // Render/Neon standard
+        HOST: process.env.DB_HOST,
         PORT: parseInt(process.env.DB_PORT || '5432', 10),
-        NAME: requireEnv('DB_NAME'),
-        USER: requireEnv('DB_USER'),
-        PASSWORD: requireEnv('DB_PASSWORD'),
+        NAME: process.env.DB_NAME,
+        USER: process.env.DB_USER,
+        PASSWORD: process.env.DB_PASSWORD,
         POOL_MAX: parseInt(process.env.DB_POOL_MAX || '10', 10),
         IDLE_MS: parseInt(process.env.DB_POOL_IDLE_MS || '10000', 10),
     },

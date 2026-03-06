@@ -6,17 +6,18 @@ import { logger } from '../utils/logger.util';
 // PostgreSQL Connection Pool
 // ============================================================
 const poolConfig: PoolConfig = {
-    host: ENV.DB.HOST,
-    port: ENV.DB.PORT,
-    database: ENV.DB.NAME,
-    user: ENV.DB.USER,
-    password: ENV.DB.PASSWORD,
+    connectionString: ENV.DB.URL, // DATABASE_URL mavjud bo'lsa, barcha sozlamalarni o'zi oladi
+    host: !ENV.DB.URL ? ENV.DB.HOST : undefined,
+    port: !ENV.DB.URL ? ENV.DB.PORT : undefined,
+    database: !ENV.DB.URL ? ENV.DB.NAME : undefined,
+    user: !ENV.DB.URL ? ENV.DB.USER : undefined,
+    password: !ENV.DB.URL ? ENV.DB.PASSWORD : undefined,
     max: ENV.DB.POOL_MAX,
     idleTimeoutMillis: ENV.DB.IDLE_MS,
     connectionTimeoutMillis: 5000,
     // SSL ni har doim yoqish (Neon/Render/Heroku uchung zarur)
     ssl: {
-        rejectUnauthorized: false // Neon DB o'zining SSL sertifikatiga ega, false qilinishi xavfsiz va majburiy
+        rejectUnauthorized: false
     },
 };
 
