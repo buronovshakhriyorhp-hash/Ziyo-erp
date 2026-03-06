@@ -1,8 +1,9 @@
-import express, { Application } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 import 'express-async-errors'; // async xatolarini route handlerdan global handlergа uzatish
 
 import { ENV } from './config/env';
@@ -127,7 +128,19 @@ export function createApp(): Application {
     app.use('/api/bot', botRoutes);                 // Telegram Bot Admin API
     app.use('/api/lms', lmsRoutes);                 // Student LMS Gamification API
 
-    // ---- 8. XATO HANDLERLARI ----
+    // ---- 8. FAYLLAR VA FRONTEND XIZMATI (Static Files & SPA Routing) ----
+    const publicPath = path.join(__dirname, '../../public');
+    app.use(express.static(publicPath));
+
+    // API bo'lmagan barcha frontend marshrutlarini React ilovaga yo'naltirish
+    app.get('*', (req, res, next) => {
+        if (req.path.startsWith('/api')) {
+            return next();
+        }
+        res.sendFile(path.join(publicPath, 'index.html'));
+    });
+
+    // ---- 9. XATO HANDLERLARI ----
     app.use(notFoundHandler);
     app.use(errorHandler);
 
