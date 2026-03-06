@@ -1,0 +1,56 @@
+{
+    "name": "Ziyo Chashmasi ERP",
+    "short_name": "Ziyo ERP",
+    "description": "Ziyo Chashmasi o'quv markazi uchun korporativ ERP tizimi",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#3b82f6",
+    "orientation": "portrait-primary",
+    "lang": "uz",
+    "icons": [
+        {
+            "src": "/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "business",
+        "education",
+        "productivity"
+    ],
+    "screenshots": [
+        {
+            "src": "/screenshot-wide.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Ziyo ERP Dashboard"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Dashboard",
+            "url": "/dashboard",
+            "description": "Asosiy boshqaruv paneli"
+        },
+        {
+            "name": "To'lovlar",
+            "url": "/payments",
+            "description": "To'lovlar ro'yxati"
+        },
+        {
+            "name": "Davomat",
+            "url": "/attendance",
+            "description": "Davomat qayd etish"
+        }
+    ]
+}

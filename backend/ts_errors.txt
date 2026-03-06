@@ -1,0 +1,9 @@
+﻿src/bot/bot.ts(199,9): error TS2561: Object literal may only specify known properties, but 'persistent' does not exist in type 'ReplyKeyboardMarkup'. Did you mean to write 'is_persistent'?
+src/routes/finance.routes.ts(260,28): error TS2551: Property 'profileId' does not exist on type 'AccessTokenPayload'. Did you mean 'roleId'?
+src/routes/finance.routes.ts(269,36): error TS2551: Property 'profileId' does not exist on type 'AccessTokenPayload'. Did you mean 'roleId'?
+src/services/churn-detection.service.ts(1,10): error TS2305: Module '"../config/database"' has no exported member 'db'.
+src/services/churn-detection.service.ts(56,37): error TS7006: Parameter 'row' implicitly has an 'any' type.
+src/services/churn-detection.service.ts(85,18): error TS7006: Parameter 'row' implicitly has an 'any' type.
+src/services/churn-detection.service.ts(86,21): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/services/churn-detection.service.ts(87,20): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/services/churn-detection.service.ts(87,23): error TS7006: Parameter 'b' implicitly has an 'any' type.

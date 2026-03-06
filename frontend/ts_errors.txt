@@ -1,0 +1,13 @@
+﻿src/hooks/useAuth.ts(13,50): error TS2554: Expected 2 arguments, but got 3.
+src/hooks/useAuth.ts(13,57): error TS2339: Property 'refreshToken' does not exist on type 'LoginResponse'.
+src/pages/academic/AttendancePage.tsx(22,12): error TS6133: 'isLoading' is declared but its value is never read.
+src/pages/academic/CoursesPage.tsx(15,41): error TS2554: Expected 0 arguments, but got 1.
+src/pages/academic/CoursesPage.tsx(18,37): error TS2353: Object literal may only specify known properties, and 'page' does not exist in type '() => Promise<unknown>'.
+src/pages/academic/CoursesPage.tsx(20,28): error TS2339: Property 'data' does not exist on type '{}'.
+src/pages/academic/CoursesPage.tsx(21,25): error TS2339: Property 'meta' does not exist on type '{}'.
+src/pages/dashboard/DashboardPage.tsx(3,5): error TS6133: 'Users' is declared but its value is never read.
+src/pages/finance/PaymentModal.tsx(33,21): error TS6133: 'setLoading' is declared but its value is never read.
+src/pages/student/StudentDashboard.tsx(40,32): error TS2345: Argument of type 'Enrollment[]' is not assignable to parameter of type 'SetStateAction<Enrollment[]>'.
+  Type 'import("C:/Users/buron/1 ERP tizimi/frontend/src/services/academic.service").Enrollment[]' is not assignable to type 'Enrollment[]'.
+    Type 'Enrollment' is missing the following properties from type 'Enrollment': courseName, teacherName, startTime, endTime, schedule
+src/pages/teacher/TeacherCabinet.tsx(24,12): error TS6133: 'loading' is declared but its value is never read.

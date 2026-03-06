@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────────────────────────
+   ZIYO CHASHMASI  —  Design Tokens (CSS Custom Properties)
+   Shadcn/ui compatible HSL variable format
+   ────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    /* ── Surfaces ─────────────────────────────────────────── */
+    --background: 0 0% 98%;
+    /* #FAFAFA — sahifa foni   */
+    --foreground: 222 47% 11%;
+    /* #0F1C3F — asosiy matn   */
+
+    /* ── Card ─────────────────────────────────────────────── */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    /* ── Popover ──────────────────────────────────────────── */
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* ── Primary — Brand Ko'k ─────────────────────────────── */
+    --primary: 217 91% 60%;
+    /* #3B82F6 */
+    --primary-foreground: 0 0% 100%;
+
+    /* ── Secondary ──────────────────────────────────────────  */
+    --secondary: 214 32% 91%;
+    /* #E2E8F0 */
+    --secondary-foreground: 222 47% 20%;
+
+    /* ── Muted ────────────────────────────────────────────── */
+    --muted: 214 32% 91%;
+    --muted-foreground: 215 16% 47%;
+    /* #64748B */
+
+    /* ── Accent ───────────────────────────────────────────── */
+    --accent: 214 32% 91%;
+    --accent-foreground: 222 47% 11%;
+
+    /* ── Destructive ──────────────────────────────────────── */
+    --destructive: 0 84% 60%;
+    /* #EF4444 */
+    --destructive-foreground: 0 0% 100%;
+
+    /* ── Border / Input / Ring ────────────────────────────── */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
+
+    /* ── Radius ───────────────────────────────────────────── */
+    --radius: 0.5rem;
+
+    /* ── Sidebar ──────────────────────────────────────────── */
+    --sidebar-width: 260px;
+    --sidebar-collapsed: 64px;
+    --navbar-height: 64px;
+  }
+
+  /* Dark mode (kelajak uchun) */
+  .dark {
+    --background: 222 47% 8%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 224 76% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   KOMPONENLAR UTILITIES
+   ────────────────────────────────────────────────────────────── */
+@layer components {
+  /* Sidebar link uchun umumiy stil */
+  .sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-text transition-all duration-200 hover:bg-sidebar-hover hover:text-white;
+  }
+
+  .sidebar-link.active {
+    @apply bg-sidebar-active text-white shadow-sm;
+  }
+
+  /* Stats card  */
+  .stat-card {
+    @apply bg-card rounded-xl p-5 shadow-card border border-border hover:shadow-card-md transition-shadow duration-200;
+  }
+
+  /* Page header */
+  .page-header {
+    @apply flex items-center justify-between mb-6;
+  }
+
+  .page-title {
+    @apply text-xl font-semibold text-foreground tracking-tight;
+  }
+
+  /* Page content wrapper — consistent padding */
+  .container-page {
+    @apply px-4 py-5 sm:px-6 lg:px-8 max-w-screen-2xl mx-auto;
+  }
+}
