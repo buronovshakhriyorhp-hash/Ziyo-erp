@@ -5,11 +5,15 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const pool = new Pool({
-    host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT || '5432'),
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    connectionString: process.env.DATABASE_URL,
+    host: !process.env.DATABASE_URL ? (process.env.DB_HOST || 'localhost') : undefined,
+    port: !process.env.DATABASE_URL ? (parseInt(process.env.DB_PORT || '5432')) : undefined,
+    database: !process.env.DATABASE_URL ? process.env.DB_NAME : undefined,
+    user: !process.env.DATABASE_URL ? process.env.DB_USER : undefined,
+    password: !process.env.DATABASE_URL ? process.env.DB_PASSWORD : undefined,
+    ssl: {
+        rejectUnauthorized: false
+    },
 });
 
 async function run() {

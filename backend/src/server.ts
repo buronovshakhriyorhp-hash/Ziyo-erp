@@ -62,6 +62,14 @@ function freePort(port: number): void {
 async function bootstrap(): Promise<void> {
     // Demo accountlarni kiritish (terminal xatoligi sababli server startupga qo'shildi)
     try {
+        logger.info('🔄 Ma\'lumotlar bazasini sozlash boshlandi...');
+        // setup-db.js migratsiyalarni va adminni tekshiradi
+        execSync('node setup-db.js', { stdio: 'inherit' });
+    } catch (err) {
+        logger.error('Failed to run setup-db.js:', err);
+    }
+
+    try {
         logger.info('🔄 Running demo seed script...');
         execSync('node seed-demo.js', { stdio: 'inherit' });
     } catch (err) {
