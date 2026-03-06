@@ -23,7 +23,7 @@ Express/Node.js backendimizni tekinga ishga tushirish yo'riqnomasi.
    - **Root Directory:** `backend` (chunki bizning serverimiz backend papkasida).
    - **Environment:** `Node`
    - **Build Command:** `npm install && npm run build`
-   - **Start Command:** `npm start` yoki `node dist/index.js`
+   - **Start Command:** `npm start` yoki `node dist/server.js`
    - **Plan:** Free ($0)
 5. **Environment Variables (Atrof-muhit o'zgaruvchilari):** "Advanced" bo'limida quyidagilarni kiriting:
    - `DATABASE_URL` = (Boya Neon.tech dan olgan manzilingizni qo'ying)

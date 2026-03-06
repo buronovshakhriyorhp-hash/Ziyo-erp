@@ -2,7 +2,7 @@ module.exports = {
     apps: [
         {
             name: 'ziyo-erp-backend',
-            script: './dist/index.js',
+            script: './dist/server.js',
             instances: 'max', // Use all available CPU cores for maximum concurrency
             exec_mode: 'cluster', // Enables clustering mode
             watch: false, // Do not watch in production to save CPU
