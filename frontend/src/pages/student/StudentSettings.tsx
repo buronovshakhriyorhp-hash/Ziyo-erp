@@ -9,7 +9,6 @@ import {
     Bell,
     FileText,
     PencilLine,
-    ChevronRight,
     ShieldCheck
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
@@ -18,7 +17,7 @@ import { financeService, PaymentDebt } from "@/services/finance.service";
 import { settingsService } from "@/services/settings.service";
 
 export default function StudentSettings() {
-    const user = useAuthStore((s) => s.user);
+    const { user } = useAuthStore();
     const [debts, setDebts] = useState<PaymentDebt[]>([]);
     const [loadingDebts, setLoadingDebts] = useState(true);
     const [paymentConfig, setPaymentConfig] = useState({

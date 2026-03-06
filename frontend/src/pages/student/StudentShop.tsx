@@ -9,7 +9,6 @@ import {
     SlidersHorizontal,
     CheckCircle2
 } from "lucide-react";
-import { useAuthStore } from "@/store/auth.store";
 import { useUiStore } from "@/store/ui.store";
 
 type Tab = "sotuvda" | "sotib_olganlarim";
@@ -24,7 +23,6 @@ interface Product {
 }
 
 export default function StudentShop() {
-    const user = useAuthStore((s) => s.user);
     const { addToast } = useUiStore();
     const [activeTab, setActiveTab] = useState<Tab>("sotuvda");
 

@@ -7,14 +7,13 @@ import {
     ListChecks,
     BookOpenCheck,
     Award,
-    Star,
-    Zap
+    Star
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 import { lmsService, GamificationProfile } from "@/services/lms.service";
 
 export default function StudentIndicators() {
-    const user = useAuthStore((s) => s.user);
+    const { user } = useAuthStore();
     const [profile, setProfile] = useState<GamificationProfile | null>(null);
     const [loading, setLoading] = useState(true);
 

@@ -4,7 +4,11 @@ import { useAuthStore } from '@/store/auth.store';
 import { Bell, Menu, Search, UserCircle, LogOut, Settings } from 'lucide-react';
 import { useState } from 'react';
 
-export const StudentDashboardLayout: React.FC = () => {
+interface StudentDashboardLayoutProps {
+  children?: React.ReactNode;
+}
+
+export const StudentDashboardLayout: React.FC<StudentDashboardLayoutProps> = ({ children }) => {
   const user = useAuthStore(s => s.user);
   const logout = useAuthStore(s => s.logout);
   const location = useLocation();
@@ -141,7 +145,7 @@ export const StudentDashboardLayout: React.FC = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar bg-transparent px-4 md:px-8 pb-8 custom-scrollbar">
-          <Outlet />
+          {children || <Outlet />}
         </main>
       </div>
     </div>
