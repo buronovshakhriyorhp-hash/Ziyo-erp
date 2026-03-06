@@ -180,33 +180,32 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "flex flex-col h-screen bg-slate-950 border-r border-white/5",
+        "flex flex-col h-screen bg-[#0f172a] border-r border-white/5",
         "transition-all duration-300 ease-in-out flex-shrink-0 relative overflow-hidden",
         collapsed ? "w-20" : "w-[280px]",
       )}
     >
       {/* Background pattern */}
-      <div className="absolute top-0 right-0 w-48 h-48 bg-brand-500/10 blur-[80px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 blur-[60px] rounded-full pointer-events-none" />
 
       {/* ── Logo ─────────────────── */}
       <div
         className={cn(
-          "flex items-center gap-4 px-6 h-20 md:h-24 mb-2 flex-shrink-0 cursor-pointer group border-b border-white/[0.02]",
+          "flex items-center gap-4 px-6 h-24 mb-4 flex-shrink-0 cursor-pointer group",
           collapsed && "justify-center px-0",
         )}
         onClick={() => navigate("/dashboard")}
       >
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-blue-600 flex items-center justify-center shadow-lg shadow-brand-500/20 transition-transform group-hover:scale-105 group-hover:rotate-3 border border-white/10">
-          <Building2 className="w-5 h-5 text-white" />
+        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand-500 to-blue-600 flex items-center justify-center shadow-lg shadow-brand-500/20 transition-transform group-hover:scale-105">
+          <Building2 className="w-6 h-6 text-white" />
         </div>
         {!collapsed && (
           <div className="animate-in fade-in slide-in-from-left-4 duration-500">
-            <p className="text-white font-black text-xl tracking-tight leading-none">
-              ZIYO
+            <p className="text-white font-black text-lg tracking-tight leading-none uppercase">
+              Ziyo
             </p>
             <div className="flex items-center gap-1.5 mt-1">
-              <span className="text-brand-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+              <span className="text-brand-400 text-[10px] font-black uppercase tracking-[0.2em]">
                 ERP System
               </span>
             </div>
@@ -337,10 +336,10 @@ function SidebarItem({
               to={child.href}
               className={({ isActive }) =>
                 cn(
-                  "flex h-10 items-center px-4 rounded-xl text-[13px] font-medium transition-all duration-200",
+                  "flex h-10 items-center px-4 rounded-xl text-sm font-bold transition-all duration-200",
                   isActive
-                    ? "text-brand-400 bg-brand-500/10 shadow-[inset_2px_0_0_0_rgba(16,185,129,1)]"
-                    : "text-gray-400 hover:text-gray-200 hover:bg-white/[0.04]",
+                    ? "text-brand-400 bg-brand-500/5"
+                    : "text-gray-500 hover:text-gray-300 hover:bg-white/[0.02]",
                 )
               }
             >
@@ -358,22 +357,22 @@ function SidebarItem({
       title={collapsed ? item.label : undefined}
       className={({ isActive }) =>
         cn(
-          "flex h-[44px] items-center gap-3.5 px-4 rounded-xl transition-all duration-300 group relative",
+          "flex h-12 items-center gap-4 px-4 rounded-2xl transition-all duration-300 group relative",
           isActive
-            ? "bg-gradient-to-r from-brand-600 to-brand-500/80 text-white shadow-md shadow-brand-500/20"
-            : "text-gray-400 hover:text-white hover:bg-white/[0.04]",
-          collapsed && "justify-center px-0 h-12 rounded-2xl",
+            ? "bg-gradient-to-r from-brand-600 to-blue-600 text-white shadow-lg shadow-brand-500/20 scale-[1.02]"
+            : "text-gray-400 hover:text-gray-200 hover:bg-white/[0.05]",
+          collapsed && "justify-center px-0",
         )
       }
     >
       <item.icon
         className={cn(
-          "w-[18px] h-[18px] flex-shrink-0 transition-transform duration-300 group-hover:scale-110",
+          "w-5 h-5 flex-shrink-0 transition-transform duration-300 group-hover:scale-110",
           collapsed && "w-6 h-6",
         )}
       />
       {!collapsed && (
-        <span className="text-[14px] font-medium tracking-wide">
+        <span className="text-sm font-bold uppercase tracking-widest">
           {item.label}
         </span>
       )}
