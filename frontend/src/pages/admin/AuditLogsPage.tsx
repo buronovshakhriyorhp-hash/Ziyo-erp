@@ -287,7 +287,7 @@ export default function AuditLogsPage() {
             className="absolute inset-0 bg-background/80 backdrop-blur-sm transition-opacity"
             onClick={() => setSelectedLog(null)}
           />
-          <div className="relative bg-card w-full max-w-5xl rounded-2xl shadow-modal flex flex-col max-h-full border border-border animate-fade-in-up">
+          <div className="relative z-10 bg-card w-full max-w-5xl rounded-2xl shadow-modal flex flex-col max-h-full border border-border animate-fade-in-up">
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-border flex-shrink-0">
               <div>
@@ -349,11 +349,11 @@ export default function AuditLogsPage() {
               ) : (
                 /* Insert / Delete / Login uchun bitta oyna */
                 <div className="max-w-3xl mx-auto space-y-2">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 mb-2 bg-blue-50/50 p-2 border border-blue-100 rounded-lg">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 mb-2 bg-blue-50/50 p-2 lg:p-3 border border-blue-100 rounded-lg">
                     Qayd ishi ma'lumotlari (Payload)
                   </div>
-                  <div className="bg-[#1e1e1e] rounded-xl p-4 overflow-x-auto shadow-inner text-xs sm:text-sm custom-scrollbar">
-                    <pre className="text-blue-400 font-mono leading-relaxed">
+                  <div className="bg-[#1e1e1e] rounded-xl p-3 md:p-4 overflow-x-auto shadow-inner text-xs sm:text-sm custom-scrollbar block max-h-[40vh] overflow-y-auto">
+                    <pre className="text-blue-400 font-mono leading-relaxed inline-block min-w-full">
                       {JSON.stringify(
                         selectedLog.newData || selectedLog.oldData,
                         null,

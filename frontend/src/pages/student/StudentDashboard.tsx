@@ -81,12 +81,12 @@ export default function StudentDashboard() {
       <div className="flex flex-col lg:flex-row gap-8 items-stretch">
 
         {/* 🔥 PREMIUM KUMUSHLAR CARD 🔥 */}
-        <div className="flex-1 relative group overflow-hidden rounded-[2.5rem] p-1">
+        <div className="flex-1 relative group overflow-hidden rounded-[2rem] md:rounded-[2.5rem] p-[2px]">
           {/* Animated Gradient Border */}
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 rounded-[2.5rem] opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 rounded-[2rem] md:rounded-[2.5rem] opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-100%] animate-[shimmer_3s_infinite] pointer-events-none"></div>
 
-          <div className="relative h-full bg-[#0a0f23]/90 dark:bg-[#0a0f23]/95 backdrop-blur-3xl rounded-[2.4rem] p-8 md:p-10 shadow-2xl overflow-hidden flex flex-col justify-between">
+          <div className="relative h-full bg-[#0a0f23]/90 dark:bg-[#0a0f23]/95 backdrop-blur-3xl rounded-[1.9rem] md:rounded-[2.4rem] p-6 md:p-10 shadow-2xl overflow-hidden flex flex-col justify-between">
 
             {/* Background Glow Orbs */}
             <div className="absolute -top-32 -right-32 w-96 h-96 bg-cyan-500/20 rounded-full blur-[80px] group-hover:bg-cyan-400/30 transition-colors duration-700 mix-blend-screen pointer-events-none"></div>
@@ -94,22 +94,22 @@ export default function StudentDashboard() {
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
               <div className="text-center md:text-left">
-                <h3 className="text-cyan-400 font-bold tracking-widest uppercase text-xs mb-2 flex flex-col md:flex-row items-center md:justify-start justify-center gap-2">
-                  <Trophy className="w-4 h-4" /> Yig'ilgan boylik
+                <h3 className="text-cyan-400 font-bold tracking-widest uppercase text-[10px] md:text-xs mb-2 md:mb-3 flex flex-row items-center justify-center md:justify-start gap-1.5 md:gap-2">
+                  <Trophy className="w-3.5 h-3.5 md:w-4 md:h-4" /> Yig'ilgan boylik
                 </h3>
-                <div className="flex flex-col md:flex-row items-center gap-4">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-300 drop-shadow-sm tracking-tighter">
+                <div className="flex flex-row items-center justify-center md:justify-start gap-3 md:gap-4">
+                  <h2 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-300 drop-shadow-sm tracking-tighter">
                     {diamonds}
                   </h2>
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform duration-500 rotate-3 group-hover:rotate-6">
-                    <Gem className="w-6 h-6 md:w-8 md:h-8 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] animate-pulse" />
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl md:rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform duration-500 rotate-3 group-hover:rotate-6">
+                    <Gem className="w-5 h-5 md:w-8 md:h-8 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] animate-pulse" />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-md self-center md:self-auto w-full md:w-max flex flex-col items-center md:items-start text-center md:text-left">
-                <p className="text-white/60 text-xs font-semibold uppercase tracking-wider mb-1 flex items-center justify-center md:justify-start gap-1.5"><Globe className="w-3.5 h-3.5 text-emerald-400" /> Joriy XP</p>
-                <p className="text-xl font-bold text-white shadow-sm">{xp || 159} <span className="text-white/40 text-sm font-medium">XP</span></p>
+              <div className="bg-white/5 border border-white/10 rounded-xl md:rounded-2xl p-3 md:p-4 backdrop-blur-md self-center md:self-auto w-full md:w-max flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-2 md:gap-0 mt-4 md:mt-0">
+                <p className="text-white/60 text-[10px] md:text-xs font-semibold uppercase tracking-wider flex items-center justify-center md:justify-start gap-1 md:gap-1.5 m-0 md:mb-1"><Globe className="w-3.5 h-3.5 text-emerald-400" /> Joriy XP</p>
+                <p className="text-lg md:text-xl font-bold text-white shadow-sm">{xp || 159} <span className="text-white/40 text-xs md:text-sm font-medium">XP</span></p>
               </div>
             </div>
 

@@ -201,10 +201,10 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent className="pt-6 space-y-5">
             <div className="grid gap-5">
-              <div className="space-y-4 border p-4 rounded-xl relative overflow-hidden group hover:border-emerald-200 transition-colors">
+              <div className="space-y-4 border p-4 sm:p-5 rounded-xl relative overflow-hidden group hover:border-emerald-200 transition-colors bg-white">
                 <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500 rounded-l-xl"></div>
-                <h4 className="font-bold text-gray-800 flex items-center gap-2">Payme Integratsiyasi</h4>
-                <div className="space-y-2">
+                <h4 className="font-bold text-gray-800 flex items-center gap-2 ml-1">Payme Integratsiyasi</h4>
+                <div className="space-y-2 ml-1">
                   <Label htmlFor="payme_merchant_id" className="text-xs font-semibold uppercase tracking-wider text-gray-500">Payme Merchant ID</Label>
                   <Input
                     id="payme_merchant_id"
@@ -216,16 +216,16 @@ export default function SettingsPage() {
                 </div>
               </div>
 
-              <div className="space-y-4 border p-4 rounded-xl relative overflow-hidden group hover:border-blue-200 transition-colors">
+              <div className="space-y-4 border p-4 sm:p-5 rounded-xl relative overflow-hidden group hover:border-blue-200 transition-colors bg-white">
                 <div className="absolute top-0 left-0 w-1 h-full bg-blue-500 rounded-l-xl"></div>
-                <h4 className="font-bold text-gray-800 flex items-center gap-2">Click Integratsiyasi</h4>
-                <div className="grid md:grid-cols-2 gap-4">
+                <h4 className="font-bold text-gray-800 flex items-center gap-2 ml-1">Click Integratsiyasi</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ml-1">
                   <div className="space-y-2">
                     <Label htmlFor="click_service_id" className="text-xs font-semibold uppercase tracking-wider text-gray-500">Click Service ID</Label>
                     <Input
                       id="click_service_id"
                       placeholder="Masalan: 21..."
-                      className="font-mono text-sm border-gray-200 focus:ring-blue-500"
+                      className="font-mono text-sm border-gray-200 focus:ring-blue-500 w-full"
                       value={formData["click_service_id"] || ""}
                       onChange={(e) => setFormData({ ...formData, click_service_id: e.target.value })}
                     />
@@ -235,7 +235,7 @@ export default function SettingsPage() {
                     <Input
                       id="click_merchant_user_id"
                       placeholder="Masalan: 32..."
-                      className="font-mono text-sm border-gray-200 focus:ring-blue-500"
+                      className="font-mono text-sm border-gray-200 focus:ring-blue-500 w-full"
                       value={formData["click_merchant_user_id"] || ""}
                       onChange={(e) => setFormData({ ...formData, click_merchant_user_id: e.target.value })}
                     />
@@ -254,10 +254,10 @@ export default function SettingsPage() {
         </Card>
 
         {/* Submit Section */}
-        <div className="flex justify-end pt-4 pb-12">
+        <div className="flex pt-6 pb-20 sm:pb-12 w-full mt-4 justify-center sm:justify-end">
           <Button
             size="lg"
-            className="bg-brand-600 hover:bg-brand-700 px-10 gap-2 h-12 shadow-md hover:shadow-lg transition-all"
+            className="bg-brand-600 hover:bg-brand-700 px-10 gap-2 h-14 sm:h-12 shadow-xl hover:shadow-2xl transition-all w-full sm:w-auto text-base"
             onClick={handleSave}
             disabled={saving}
           >
