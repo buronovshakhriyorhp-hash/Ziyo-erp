@@ -39,12 +39,24 @@ export function createApp(): Application {
 
     // ---- 2. CORS ----
     app.use(cors({
-        origin: ENV.IS_PRODUCTION
-            ? ['https://app.ziyochashmasi.uz']  // Production domain
-            : ENV.ALLOWED_ORIGINS,
+        origin: (origin, callback) => {
+            // Developmentda hamma narsaga ruxsat
+            if (!ENV.IS_PRODUCTION) {
+                return callback(null, true);
+            }
+            // Productionda faqat ruxsat etilgan originlar
+            if (!origin || ENV.ALLOWED_ORIGINS.includes(origin)) {
+                return callback(null, true);
+            }
+            // Vercel preview va branch URL'lar uchun qo'shimcha tekshiruv (ixtiyoriy)
+            if (origin.endsWith('.vercel.app') || origin.includes('ziyochashmasi.uz')) {
+                return callback(null, true);
+            }
+            callback(new Error('Not allowed by CORS'));
+        },
         credentials: true,    // Cookie'larni yuborish uchun zarur
-        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     }));
 
     // ---- 3. RATE LIMITING (Login uchun qattiqroq cheklov) ----
@@ -85,10 +97,18 @@ export function createApp(): Application {
         next();
     });
 
-    // ---- 6. SOG'LIQ TEKSHIRISH ----
-    app.get('/health', (_req, res) => {
-        res.json({ status: 'ok', timestamp: new Date().toISOString() });
-    });
+    // ---- 6. SOG'LIQ TEKSHIRISH (Health Checks) ----
+    const healthCheck = (_req: any, res: any) => {
+        res.json({
+            status: 'ok',
+            timestamp: new Date().toISOString(),
+            env: ENV.NODE_ENV,
+            version: '1.1.0'
+        });
+    };
+
+    app.get('/health', healthCheck);
+    app.get('/api/health', healthCheck); // Proxy orqali kelganda fallback
 
     // ---- 7. MARSHRUTLAR (Routes) ----
     app.use('/api/auth', loginLimiter, authRoutes);
