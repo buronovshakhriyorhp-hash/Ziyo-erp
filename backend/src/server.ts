@@ -115,12 +115,12 @@ async function bootstrap(): Promise<void> {
             const adminChatId = settingsMap['telegram_chat_id'] || process.env.TELEGRAM_ADMIN_CHAT_ID || '';
             if (botToken) {
                 createBot(botToken, adminChatId);
-                logger.info('🤖 Ziyo Education Bot ishga tushdi!');
+                logger.info('🤖 Telegram Bot muvaffaqiyatli ishga tushdi');
             } else {
-                logger.warn('⚠️ TOKEN topilmadi — .env ga TELEGRAM_BOT_TOKEN qo\'ying');
+                logger.info('ℹ️ Telegram Bot tokeni sozlanmagan. Sozlamalar bo\'limidan kiritishingiz mumkin.');
             }
         } catch (err) {
-            logger.error('Bot ishga tushmadi:', err);
+            logger.warn('⚠️ Telegram Bot ishga tushmadi (Sozlamalarni tekshiring)');
         }
     })();
 

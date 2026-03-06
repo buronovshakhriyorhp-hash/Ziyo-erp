@@ -15,8 +15,8 @@ const poolConfig: PoolConfig = {
     max: ENV.DB.POOL_MAX,
     idleTimeoutMillis: ENV.DB.IDLE_MS,
     connectionTimeoutMillis: 5000,
-    // SSL ni har doim yoqish (Neon/Render/Heroku uchung zarur)
-    ssl: {
+    // SSL ni har doim yoqish (Neon/Render uchun zarur)
+    ssl: ENV.DB.URL?.includes('sslmode=') ? (ENV.DB.URL.includes('sslmode=verify-full') ? { rejectUnauthorized: true } : { rejectUnauthorized: false }) : {
         rejectUnauthorized: false
     },
 };
