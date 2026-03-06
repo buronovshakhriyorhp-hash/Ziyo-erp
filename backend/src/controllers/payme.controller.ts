@@ -3,6 +3,10 @@ import * as crypto from 'crypto';
 import { pool } from '../config/database';
 import { sendSuccess, AppError } from '../utils/api-response.util';
 import { logger } from '../utils/logger.util';
+import { PaymentService } from '../services/payment.service';
+import { PaymentRepository } from '../repositories/payment.repository';
+
+const paymentSvc = new PaymentService(new PaymentRepository());
 
 // ============================================================
 // PAYME INTEGRATION (Payme Business API)
@@ -216,15 +220,39 @@ export class PaymeController {
                 [performTime, paymeId]
             );
 
-            await pool.query(
-                `INSERT INTO payments (enrollment_id, student_id, payment_method_id, received_by, amount, payment_date, payment_month, description, receipt_number)
-                 SELECT e.id, e.student_id, 
-                        (SELECT id FROM payment_methods WHERE name = 'Online' LIMIT 1),
-                        NULL, $1::numeric / 100, CURRENT_DATE, date_trunc('month', CURRENT_DATE), 
-                        'Payme orqali to\'lov', $2
-                 FROM enrollments e WHERE e.id = $3`,
-                [tx.amount_tiyin, paymeId, tx.enrollment_id]
-            );
+            // Enrollment / Student IDs
+            const enrResult = await pool.query(`SELECT id, student_id FROM enrollments WHERE id = $1`, [tx.enrollment_id]);
+            const enrollment = enrResult.rows[0];
+
+            let paymentMethodResult = await pool.query(`SELECT id FROM payment_methods WHERE name = 'Online'`);
+            if (paymentMethodResult.rows.length === 0) {
+                // Fallback if not found
+                paymentMethodResult = await pool.query(`SELECT id FROM payment_methods LIMIT 1`);
+            }
+
+            // Atomik PaymentService ga o'tkazildi
+            const today = new Date();
+            const yearStr = today.getFullYear();
+            const monthStr = ('0' + (today.getMonth() + 1)).slice(-2);
+            const paymentMonth = `${yearStr}-${monthStr}-01`;
+
+            await paymentSvc.makePayment({
+                enrollmentId: tx.enrollment_id,
+                studentId: enrollment.student_id,
+                paymentMethodId: paymentMethodResult.rows[0].id,
+                receivedBy: 1, // System admin/bot ID
+                amount: tx.amount_tiyin / 100,
+                paymentMonth,
+                paymentDate: today.toISOString().split('T')[0],
+                description: 'Payme orqali online to\'lov',
+                receiptNumber: paymeId,
+                reqContext: {
+                    managerId: 1,
+                    managerName: 'Payme System',
+                    ip: 'payme-webhook-ip',
+                    ua: 'payme-bot',
+                }
+            });
 
             await pool.query('COMMIT');
         } catch (err) {
@@ -266,6 +294,15 @@ export class PaymeController {
             `UPDATE payme_transactions SET state = $1, cancel_time = $2, reason = $3 WHERE payme_id = $4`,
             [newState, cancelTime, reason, paymeId]
         );
+
+        if (tx.state === 2) {
+            // Agar tranzaksiya allaqachon bajarilgan bo'lsa (state=2), demak uni orqaga qaytarish kerak.
+            // Payments jadvalidan receipt_number bo'yicha to'lovni topib uni cancel qilish kerak.
+            const pResult = await pool.query(`SELECT id FROM payments WHERE receipt_number = $1`, [paymeId]);
+            if (pResult.rows.length > 0) {
+                await paymentSvc.cancelPayment(pResult.rows[0].id);
+            }
+        }
 
         res.json({
             result: {

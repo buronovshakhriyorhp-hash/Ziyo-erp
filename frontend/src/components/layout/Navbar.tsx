@@ -46,9 +46,9 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "h-16 flex items-center justify-between px-4 lg:px-6",
-        "bg-white border-b border-border flex-shrink-0",
-        "sticky top-0 z-30",
+        "h-[72px] flex items-center justify-between px-4 lg:px-8",
+        "bg-white/80 backdrop-blur-xl border-b border-gray-200/50 flex-shrink-0",
+        "sticky top-0 z-30 transition-all duration-300",
       )}
     >
       {/* ── Sol — Mobile hamburger ───────────────────── */}
@@ -125,9 +125,9 @@ export function Navbar() {
           <button
             onClick={() => setMenuOpen((v) => !v)}
             className={cn(
-              "flex items-center gap-2.5 pl-1 pr-2 py-1.5 rounded-lg",
-              "hover:bg-secondary transition-colors",
-              menuOpen && "bg-secondary",
+              "flex items-center gap-3 pl-1.5 pr-3 py-1.5 rounded-full",
+              "hover:bg-gray-100/80 transition-all duration-300 border border-transparent hover:border-gray-200",
+              menuOpen && "bg-gray-100 border-gray-200 shadow-sm",
             )}
           >
             {/* Avatar */}
@@ -135,11 +135,11 @@ export function Navbar() {
               <img
                 src={user.avatarUrl}
                 alt={fullName}
-                className="w-8 h-8 rounded-full object-cover ring-2 ring-brand-200"
+                className="w-9 h-9 rounded-full object-cover ring-2 ring-brand-100 shadow-sm transition-transform group-hover:scale-105"
               />
             ) : (
-              <div className="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center ring-2 ring-brand-200">
-                <span className="text-white text-xs font-semibold">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-500 to-blue-600 flex items-center justify-center ring-2 ring-brand-100 shadow-sm transition-transform group-hover:scale-105">
+                <span className="text-white text-[13px] font-bold tracking-wide">
                   {initials}
                 </span>
               </div>
@@ -170,17 +170,17 @@ export function Navbar() {
               />
               <div
                 className={cn(
-                  "absolute right-0 top-full mt-1 w-52 z-50",
-                  "bg-white rounded-xl border border-border shadow-card-md",
-                  "animate-fade-in overflow-hidden",
+                  "absolute right-0 top-[calc(100%+8px)] w-64 z-50",
+                  "bg-white/95 backdrop-blur-xl rounded-2xl border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)]",
+                  "animate-in fade-in zoom-in-95 duration-200 overflow-hidden",
                 )}
               >
                 {/* Profil sarlavhasi */}
-                <div className="px-4 py-3 border-b border-border">
-                  <p className="text-sm font-semibold text-foreground truncate">
+                <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
+                  <p className="text-[15px] font-bold text-gray-900 truncate tracking-tight">
                     {fullName}
                   </p>
-                  <p className="text-xs text-muted-foreground truncate">
+                  <p className="text-[13px] font-medium text-brand-600 truncate mt-0.5">
                     {user?.phone}
                   </p>
                 </div>

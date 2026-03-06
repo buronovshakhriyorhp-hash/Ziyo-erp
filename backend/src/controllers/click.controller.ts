@@ -3,6 +3,10 @@ import * as crypto from 'crypto';
 import { pool } from '../config/database';
 import { sendSuccess } from '../utils/api-response.util';
 import { logger } from '../utils/logger.util';
+import { PaymentService } from '../services/payment.service';
+import { PaymentRepository } from '../repositories/payment.repository';
+
+const paymentSvc = new PaymentService(new PaymentRepository());
 
 // ============================================================
 // CLICK INTEGRATION (Click Merchant API)
@@ -179,16 +183,39 @@ export class ClickController {
                 [click_trans_id]
             );
 
-            // ERP payments jadvaliga yozish
-            await pool.query(
-                `INSERT INTO payments (enrollment_id, student_id, payment_method_id, received_by, amount, payment_date, payment_month, description, receipt_number)
-                 SELECT e.id, e.student_id,
-                        (SELECT id FROM payment_methods WHERE name = 'Online' LIMIT 1),
-                        NULL, $1, CURRENT_DATE, date_trunc('month', CURRENT_DATE),
-                        'Click orqali to\'lov', $2
-                 FROM enrollments e WHERE e.id = $3`,
-                [tx.amount, click_trans_id, tx.enrollment_id]
-            );
+            // Enrollment / Student IDs
+            const enrResult = await pool.query(`SELECT id, student_id FROM enrollments WHERE id = $1`, [tx.enrollment_id]);
+            const enrollment = enrResult.rows[0];
+
+            let paymentMethodResult = await pool.query(`SELECT id FROM payment_methods WHERE name = 'Online'`);
+            if (paymentMethodResult.rows.length === 0) {
+                // Fallback if not found
+                paymentMethodResult = await pool.query(`SELECT id FROM payment_methods LIMIT 1`);
+            }
+
+            // ERP payments jadvaliga markazlashtirilgan service orqali yozish (Atomicity va qarzni yangilash)
+            const today = new Date();
+            const yearStr = today.getFullYear();
+            const monthStr = ('0' + (today.getMonth() + 1)).slice(-2);
+            const paymentMonth = `${yearStr}-${monthStr}-01`;
+
+            await paymentSvc.makePayment({
+                enrollmentId: tx.enrollment_id,
+                studentId: enrollment.student_id,
+                paymentMethodId: paymentMethodResult.rows[0].id,
+                receivedBy: 1, // System admin/bot ID
+                amount: tx.amount,
+                paymentMonth,
+                paymentDate: today.toISOString().split('T')[0],
+                description: 'Click orqali online to\'lov',
+                receiptNumber: click_trans_id,
+                reqContext: {
+                    managerId: 1,
+                    managerName: 'Click System',
+                    ip: req.ip || req.connection.remoteAddress || 'unknown',
+                    ua: req.headers['user-agent'] || 'click-bot',
+                }
+            });
 
             await pool.query('COMMIT');
             logger.info(`Click to'lov yakunlandi: enrollment=${tx.enrollment_id}, summa=${tx.amount}`);
