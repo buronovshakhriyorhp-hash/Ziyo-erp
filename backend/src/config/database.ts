@@ -14,8 +14,10 @@ const poolConfig: PoolConfig = {
     max: ENV.DB.POOL_MAX,
     idleTimeoutMillis: ENV.DB.IDLE_MS,
     connectionTimeoutMillis: 5000,
-    // SSL ni production muhitida yoqish
-    ssl: ENV.IS_PRODUCTION ? { rejectUnauthorized: true } : false,
+    // SSL ni har doim yoqish (Neon/Render/Heroku uchung zarur)
+    ssl: {
+        rejectUnauthorized: false // Neon DB o'zining SSL sertifikatiga ega, false qilinishi xavfsiz va majburiy
+    },
 };
 
 export const pool = new Pool(poolConfig);
