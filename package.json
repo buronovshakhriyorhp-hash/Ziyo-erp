@@ -3,8 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "build": "npm install --prefix frontend && npm run build --prefix frontend",
-        "start": "node backend/dist/server.js",
-        "postbuild": "echo 'Build complete!'"
+        "build": "cd frontend && npm install && npm run build && cd .. && mkdir -p public && cp -rf frontend/dist/* public/",
+        "start": "node backend/dist/server.js"
     }
 }
